@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>PneumoAI | Pneumonia Detection System</title>
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='static/style.css') }}">
+
+    <link rel="preconnect"
+          href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+          href="https://fonts.gstatic.com"
+          crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+          rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="container">
+
+    <header>
+
+        <div class="logo">
+
+            🫁 PneumoAI
+
+        </div>
+
+        <nav>
+
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Prediction</a>
+
+        </nav>
+
+    </header>
+
+    <section class="hero">
+
+        <div class="left">
+
+            <h1>
+
+                AI Powered Pneumonia Detection
+
+            </h1>
+
+            <p>
+
+                Upload a Chest X-ray image to predict whether the patient is
+                NORMAL or has PNEUMONIA using a Deep Learning model based on
+                DenseNet121.
+
+            </p>
+
+            <form action="/predict"
+                  method="POST"
+                  enctype="multipart/form-data">
+
+                <div class="upload-box">
+
+                    <input
+                        type="file"
+                        name="file"
+                        required>
+
+                </div>
+
+                <button type="submit">
+
+                    Analyze X-ray
+
+                </button>
+
+            </form>
+
+            {% if error %}
+
+            <div class="error">
+
+                {{ error }}
+
+            </div>
+
+            {% endif %}
+
+        </div>
+
+        <div class="right">
+
+            {% if image_path %}
+
+            <img src="{{ image_path }}">
+
+            {% else %}
+
+            <img src="https://images.unsplash.com/photo-1581594693702-fbdc51b2763b">
+
+            {% endif %}
+
+        </div>
+
+    </section>
+
+
+    {% if prediction %}
+
+    <section class="result">
+
+        <h2>
+
+            Prediction Result
+
+        </h2>
+
+        <div class="card">
+
+            <h1>
+
+                {{ prediction }}
+
+            </h1>
+
+            <h3>
+
+                Confidence :
+                {{ confidence }} %
+
+            </h3>
+
+        </div>
+
+    </section>
+
+    {% endif %}
+
+</div>
+
+
+<footer>
+
+    © 2026 PneumoAI
+    | Developed using Flask + DenseNet121 + TensorFlow
+
+</footer>
+
+</body>
+
+</html>
